@@ -1,4 +1,18 @@
-angular.module('flapperNews', [])
+angular.module('flapperNews', ['ui.router'])
+.config([
+  '$stateProvider',
+  '$urlRouterProvider',
+  function($stateProvider, $urlRouterProvider) {
+
+    $stateProvider
+      .state('home', {
+        url: '/home',
+        templateUrl: '/home.html',
+        controller: 'MainCtrl'
+      });
+
+    $urlRouterProvider.otherwise('home');
+  }])
 
 .factory('posts', [function(){
   var o = {
@@ -11,7 +25,6 @@ angular.module('flapperNews', [])
   '$scope',
   'posts',
   function($scope, posts){
-    $scope.test = 'Hello Barnabas!';
     $scope.posts = posts.posts;
 
     $scope.addPost = function(){
@@ -28,4 +41,4 @@ angular.module('flapperNews', [])
       post.upvotes += 1;
     };
   }
-]);
+])
